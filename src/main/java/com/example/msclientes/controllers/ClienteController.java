@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.msclientes.models.Cliente;
 import com.example.msclientes.services.ClienteService;
 
-import lombok.extern.log4j.Log4j2;
-
 @RestController
 @RequestMapping("/clientes")
 // @CrossOrigin("http://localhost:4200")
