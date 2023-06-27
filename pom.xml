@@ -18,6 +18,13 @@
 		<spring-cloud.version>2021.0.7</spring-cloud.version>
 	</properties>
 	<dependencies>
+		<!-- Configuração do mscliente como cliente para acessar o servidor eurekaserver -->
+		<dependency>
+		  <groupId>org.springframework.cloud</groupId>
+		  <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+		</dependency>
+		<!--Fim da configuração -->
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
@@ -44,6 +51,23 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+    
+	<!-- 
+		Configuração do spring-cloud no mscliente para habilitar o mscliente 
+		acessar o "eurekaserver".
+	-->
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework.cloud</groupId>
+				<artifactId>spring-cloud-dependencies</artifactId>
+				<version>${spring-cloud.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	<!-- Fim da configuração-->
 
 	<build>
 		<plugins>
