@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -22,7 +23,6 @@ import com.example.msclientes.services.ClienteService;
 
 @RestController
 @RequestMapping("/clientes")
-// @CrossOrigin("http://localhost:4200")
 public class ClienteController {
 
 	@Autowired
@@ -85,6 +85,14 @@ public class ClienteController {
 	@ResponseStatus(HttpStatus.OK)
 	public void eliminar(@PathVariable("id_cliente") Integer IdCliente) {
 		this.clienteService.eliminar(IdCliente);
+	}
+
+	@GetMapping(params = "bi")
+	// @ApiOperation("Buscar cliente.")
+	// @ApiResponse(code = 200, message = "Cliente encontrado com sucesso.")
+	@ResponseStatus(HttpStatus.OK)
+	public Cliente getClienteByBi(@RequestParam("bi") String bi) {
+		return this.clienteService.findByBi(bi);
 	}
 
 }

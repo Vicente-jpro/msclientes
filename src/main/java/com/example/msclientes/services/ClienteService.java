@@ -33,4 +33,12 @@ public class ClienteService {
 	public List<Cliente> listarClientes() {
 		return this.clienteRepository.findAll();
 	}
+
+	public Cliente findByBi(String bi) {
+		return this.clienteRepository
+				.findAllByBi(bi)
+				.orElseThrow(() -> new ClienteNotFoundException(
+						"Cliente não encontrado. Bi invalido . Bi: " + bi));
+	}
+
 }
