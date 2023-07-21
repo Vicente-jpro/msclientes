@@ -2,6 +2,7 @@ package com.example.msclientes.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,12 +28,13 @@ public class ClienteController {
 
 	@Autowired
 	private ClienteService clienteService;
+	private final Logger logger = Logger.getLogger(ClienteController.class.getName());
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity salvar(@RequestBody Cliente cliente) {
 		Cliente clt = this.clienteService.salvar(cliente);
-
+		logger.info("Salvar cliente com BI: " + cliente.getBi());
 		// Usado para apresentar rotas dinamicas.
 		// EX: http://localhost:8080/clientes?bi=12345LA049
 		URI headerLocation = ServletUriComponentsBuilder
@@ -48,6 +50,8 @@ public class ClienteController {
 	// @ApiResponse(code = 201, message = "Cliente atualizado com sucesso.")
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity atualizar(@RequestBody Cliente cliente, @PathVariable("id_cliente") Integer IdCliente) {
+		logger.info("Atualizar cliente com ID: " + IdCliente);
+
 		Cliente client = this.clienteService.getCliente(IdCliente);
 		cliente.setIdCliente(client.getIdCliente());
 		Cliente clt = this.clienteService.salvar(cliente);
@@ -67,6 +71,7 @@ public class ClienteController {
 	// @ApiResponse(code = 302, message = "Clientes encontrados com sucesso.")
 	@ResponseStatus(HttpStatus.OK)
 	public List<Cliente> listarClientes() {
+		logger.info("Atualizar todos os clientes com ID: ");
 		return this.clienteService.listarClientes();
 	}
 
@@ -75,7 +80,7 @@ public class ClienteController {
 	// @ApiResponse(code = 200, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.OK)
 	public Cliente getCliente(@PathVariable("id_cliente") Integer IdCliente) {
-
+		logger.info("Buscar cliente com ID: " + IdCliente);
 		return this.clienteService.getCliente(IdCliente);
 	}
 
@@ -84,6 +89,7 @@ public class ClienteController {
 	// @ApiResponse(code = 200, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.OK)
 	public void eliminar(@PathVariable("id_cliente") Integer IdCliente) {
+		logger.info("Eliminar cliente com ID: " + IdCliente);
 		this.clienteService.eliminar(IdCliente);
 	}
 
@@ -92,6 +98,7 @@ public class ClienteController {
 	// @ApiResponse(code = 200, message = "Cliente encontrado com sucesso.")
 	@ResponseStatus(HttpStatus.OK)
 	public Cliente getClienteByBi(@RequestParam("bi") String bi) {
+		logger.info("Buscar cliente com BI: " + bi);
 		return this.clienteService.findByBi(bi);
 	}
 
