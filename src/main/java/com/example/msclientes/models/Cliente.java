@@ -24,4 +24,7 @@ public class Cliente {
 	@Column(name = "bi")
 	private String bi;
 
+	@Column(name = "idade")
+	private String idade;
+
 }
